@@ -9,8 +9,8 @@ const Footer = (props) => (
       fontSize: 1,
     }}
   >
-    <Text sx={{ mx: 3, display: "inline-block" }}>
-      Footer
+    <Text sx={{ fontSize: 14, display: "inline-block" }}>
+      Copyright &copy; 2021 adeka.id
     </Text>
   </Box>
 )

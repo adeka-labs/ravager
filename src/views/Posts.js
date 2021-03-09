@@ -1,26 +1,26 @@
-import MDX from "@mdx-js/runtime"
-import { Flex, Box, Heading, Text } from "theme-ui"
-import Image from "next/image"
-import Container from "../ui/Container"
-import DraftBadge from "../ui/DraftBadge"
-import Link from "next/link"
+import MDX from "@mdx-js/runtime";
+import { Flex, Box, Heading, Text } from "theme-ui";
+import Image from "next/image";
+import Container from "../ui/Container";
+import DraftBadge from "../ui/DraftBadge";
+import Link from "next/link";
 
 const Posts = ({ posts, prevPosts, nextPosts }) => {
-  const isLocal = process.env.NODE_ENV === "development"
+  const isLocal = process.env.NODE_ENV === "development";
 
   return (
     <Container>
       {posts &&
         posts
           .filter((post) => {
-            return isLocal || !post.draft
+            return isLocal || !post.draft;
           })
           .map((post) => (
             <Box sx={{ pb: 5 }} key={post.slug}>
               <Heading sx={{ pb: 2, position: "relative" }}>
                 {post.draft && <DraftBadge />}
                 <Link href={"/" + post.slug} passHref>
-                  <a>{post.title}</a>
+                  <a style={{ textDecoration: "none" }}>{post.title}</a>
                 </Link>
               </Heading>
               {post.coverImage && (
@@ -44,7 +44,7 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
                 <MDX>{post.excerpt}</MDX>
               </Box>
               <Link href={"/" + post.slug} passHref>
-                <a>Read more...</a>
+                <Text sx={{ fontSize: 16, fontWeight: "bold"}}>Read more</Text>
               </Link>
             </Box>
           ))}
@@ -65,7 +65,7 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
         </Box>
       </Flex>
     </Container>
-  )
-}
+  );
+};
 
-export default Posts
+export default Posts;

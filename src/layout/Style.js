@@ -53,8 +53,6 @@ const Style = (props) => (
     }
     abbr[title] {
       border-bottom: none;
-      text-decoration: underline;
-      text-decoration: underline dotted;
     }
     b,
     strong {
@@ -186,7 +184,7 @@ const Style = (props) => (
     h5,
     h6 {
       text-rendering: optimizelegibility;
-      margin: 0 0 16px;
+      margin: 0 0 14px;
       font-family: ${theme.fonts.heading};
     }
     input,
