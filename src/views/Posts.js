@@ -43,9 +43,7 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
               <Box sx={{ pb: 3 }}>
                 <MDX>{post.excerpt}</MDX>
               </Box>
-              <Link href={"/" + post.slug} passHref>
-                <Text sx={{ fontSize: 16, fontWeight: "bold"}}>Read more</Text>
-              </Link>
+             
             </Box>
           ))}
       <Flex sx={{ fontStyle: "italic" }}>

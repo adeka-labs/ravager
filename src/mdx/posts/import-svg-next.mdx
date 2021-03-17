@@ -1,0 +1,181 @@
+---
+title: 'SVG sebagai komponen pada react'
+excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus.'
+date: '2021-03-17T05:35:07.322Z'
+coverImage: '/img/blog/post-1.png'
+coverImageAlt: 'Cover svg as components'
+coverImageWidth: 868
+coverImageHeight: 249
+---
+
+## Permasalahan
+
+Pernah mencoba untuk merubah warna SVG ? Entah kebutuhannya saat pengguna melakukan state hover pada element SVG tersebut, atau untuk menyesuaikan file SVG dengan tema dari situs kita ?
+
+Permasalahaan selanjutnya, SVG sebagai inline element di HTML dan saat dibuka pada browser Chrome tidak compatible dengan beebrapa browser dan hanya bisa menggunakan browser tertentu.
+
+Ingin merubah ukuran SVG, tetapi disaat yang bersamaan juga merubah warna SVG ? 
+
+Salah satu solusinya, SVG dijadikan sebagai react component.
+
+Konteksnya, saat menggunakan react / create-react-app, kita bisa mengimport SVG untuk dijadikan sebuah komponen daripada harus membuatnya inline element di dalam HTML. 
+
+### Inline svg HTML
+
+```
+ <p className="flex items-center text-font-gray opacity-50">
+    Beranda{" "}
+    <svg
+     xmlns="http://www.w3.org/2000/svg"
+     className="w-3 h-3 opacity-100 mx-2"
+     viewBox="0 0 11.384 20.025">
+        <g
+        id="Group_4034"
+        data-name="Group 4034"
+        transform="translate(1.414 1.414)">
+          <line
+          id="Line_452"
+          data-name="Line 452"
+          x2="12.099"
+          transform="translate(8.555 8.642) rotate(135)"
+          fill="none"
+          stroke="#596375"
+          strokeLinecap="round"
+          strokeWidth="2"
+          />
+            <line
+            id="Line_453"
+            data-name="Line 453"
+            x2="12.099"
+            transform="translate(8.555 8.555) rotate(-135)"
+            fill="none"
+            stroke="#596375"
+            strokeLinecap="round"
+            strokeWidth="2"/>
+        </g>
+    </svg>
+</p>
+```
+
+Kalau menggunakan inline element, tentu saja bisa menyelesaikan permasalahan pertama dan ketiga. Tetapi, akan muncul permasalahan yang lain dengan tidak compatible svg pada beberapa browser dan masalah lain yang muncul adalah kode editor menjadi lebih lebar, serta terlihat tidak rapih karena satu SVG yang menyimpan data path, line akan memenuhi kode editor.
+
+Sedangkan kalau menggunakan tag element img maka akan seperti berikut :
+
+```
+import IconSuccess from '../../assets/icons/success-icons.svg'
+
+<img src={IconSuccess} className="w-5/12 mb-6" alt=""/>
+```
+
+Masalah kedua terpecahkan, namun timbul masalah pertama dan ketiga karena tidak bisa melakukan custom pada SVG seperti merubah warna, ukuran, dsb. 
+
+## Solusi
+
+Melakukan import SVG sebagai sebuah React Component.
+
+```
+import React from 'react'
+import { ReactComponent as IconSearch } from '../assets/icons/icon-search.svg';
+
+const Tutorial = () => {
+  return (
+    <div>
+      <IconSearch className="w-6 h-6"/>
+    </div>
+  )
+}
+export default Tutorial
+```
+
+IconSearch merupakan nama dari komponen SVG yang akan digunakan. Sedangkan ReactComponent as BlaBla adalah salah satu fitur yang dimiliki oleh `react-script@2.0.0` versi keatas dan `react@16.3.0` versi keatas.
+
+Dengan menggunakan cara ini, kita bisa mengubah SVG sesuai yang kita mau. Mau merubah warna atau fill SVG? Mau merubah ukuran? Mau merubah warna saat hover element atau pseudoclass lain?. 
+
+Jawabnya bisa
+
+## Eksperimen dengan nextjs
+
+Ketika menggunakan [nextjs](https://nextjs.org/) dan mencoba mengimpor file .svg maka akan menemukan error seperti berikut :
+
+```
+Module parse failed: Unexpected token (1:0)
+You may need an appropriate loader to handle this file type
+```
+
+Artinya webpack tidak bisa membaca loader dan belum bisa membaca file seperti (.svg). Project tersebut, bisa saja perlu menambahkan sebuah loader bantuan untuk bisa mengolah file (.svg)
+
+Ada terdapat beberapa cara untuk menggunakan SVG pada projek nextjs
+
+### SVGR
+
+[SVGR](https://github.com/gregberge/svgr), Sebuah library yang mengizinkan untuk mengolah SVG sebagai React Component. Disini melakukan konfigurasi proyek pada `bundler`-nya yaitu webpack.
+
+Caranya dengan memasang dependencies `@svgr/webpack` pada projek,  kemudian menambah konfigurasi pada `next.config.js`.
+
+`next.config.js`
+
+```
+module.exports = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"]
+    });
+    return config;
+  }
+};
+```
+
+Kemudian bisa dapat menerapkannya pada component seperti berikut
+
+```
+import React from 'react';
+import Dog from "./Dog.svg";
+
+export const DogComponent = () => (
+  <div>
+    <h1>Dogs are nice</h1>
+    <Dog classNames="h-4 w-4" />
+  </div>
+);
+```
+
+### babel-plugin-react-svg
+
+Jika SVGR konfigurasi di level bundler, maka babel mengkonfigurasi pada level compiler. Fungsinya sama tetapi memiliki cara yang berbeda, hal ini merupakan tips dari [airbnb]([https://github.com/airbnb/babel-plugin-inline-react-svg]), yang melakukan konfigurasi pada compilernya yaitu babel.
+
+Install dependensi dahulu melalui :
+
+```
+npm install --save-dev babel-plugin-inline-react-svg
+```
+
+Kemudian menambah konfigurasi pada file `.babelrc`
+
+```
+{
+  "presets": ["next/babel"],
+  "plugins": ["inline-react-svg"]
+}
+```
+
+Selamat file svg sekarang bisa digunakan
+
+```
+import React from 'react';
+import Dog from "./Dog.svg";
+
+export const DogComponent = () => (
+  <div>
+    <h1>Dogs are nice</h1>
+    <Dog classNames="h-4 w-4" />
+  </div>
+);
+```
+
+## Situs terkait 
+
+- https://blog.cerita-faldi.xyz/cara-import-svg-di-nextjs/
+- https://github.com/airbnb/babel-plugin-inline-react-svg
+- https://medium.com/frontend-digest/how-to-import-svgs-into-nextjs-8ec6100e613f
+- https://github.com/gregberge/svgr

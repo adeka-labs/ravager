@@ -44,7 +44,6 @@ const Style = (props) => (
       margin-bottom: 24px;
     }
     p > code {
-      background-color: #f6f8fa;
       padding: 8px;
       font-size: 110%;
     }
