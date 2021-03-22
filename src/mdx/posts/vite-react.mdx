@@ -1,0 +1,58 @@
+---
+title: 'Vite dan reactjs untuk development'
+excerpt: 'Vite merupakan frontend tooling yang dibuat oleh Evan You, seperti yang kita tahu bersama beliau adalah open source creator dari framework Vuejs.'
+date: '2021-03-22T08:35:07.322Z'
+coverImage: '/img/blog/post-2.png'
+coverImageAlt: 'Semantic HTML'
+coverImageWidth: 868
+coverImageHeight: 249
+---
+
+## Tentang Vite
+
+Vite merupakan frontend tooling yang dibuat oleh Evan You, seperti yang kita tahu bersama beliau adalah open source creator dari framework Vuejs. Untuk latar belakang dibuatnya vite ini bisa dibaca di tautan [berikut](https://vitejs.dev/guide/why.html).
+
+## React dan mengapa ?
+
+Beberapa project yang kami kerjakan memakai reactjs sebagai library untuk membangun interface pada web. Serta kendala yang sering kami alami ketika development, salah satunya proses yang memakan waktu ketika inisiasi projek, instalasi dependensi.
+
+<div>
+<blockquote className="twitter-tweet"><p lang="en" dir="ltr">Create React App vs Vite React on <a href="https://twitter.com/replit?ref_src=twsrc%5Etfw">@replit</a>. <br/><br/>Vite ran before the container could even boot CRA files. <a href="https://t.co/lZe87brsjv">pic.twitter.com/lZe87brsjv</a></p>&mdash; Amjad Masad ⠕ (@amasad) <a href="https://twitter.com/amasad/status/1355379680275128321?ref_src=twsrc%5Etfw">January 30, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script> 
+</div>
+
+Tentu saja kami tertarik dengan eksperimen vite ini, dimana memecahkan permasalahan yang sering dialami ketika proses `developement` serta bukan hanya mengandalkan tren saja.
+
+## Memulai eksperimen
+
+### Instalasi dan penggunaan
+
+```js
+yarn create @vitejs/app
+```
+
+Namai projek yang akan dibuat
+
+<img src={"/img/blog/vite-react/image-1.png"} width="640" height="200"></img>
+
+Kemudian pilih template yang mau digunakan
+
+<img src={"/img/blog/vite-react/image-2.png"} width="640" height="200"></img>
+
+Lalu yang terjadi kurang lebih seperti berikut
+
+<img src={"/img/blog/vite-react/comparation.png"} width="640" height="200"></img>
+
+`vite`  memiliki kecepatan `891ms` ketika menginisiasikan projek beserta menjalankan local servernya, sedangkan `create-react-app` memerlukan proses `25.24s` dan secara kecepatan vite bisa dibilang lebih unggul.
+
+Bagaimana dari segi ukuran project?
+
+<img src={"/img/blog/vite-react/size.png"} width="640" height="200"></img>
+
+`vite` memiliki ukuran project yang lebih kecil dibandingkan `create-react-app` dengan perbangdingan vite = 98MB dan cra = 247MB.
+
+## Kesimpulan
+`vite` patut dicoba untuk eksperimen selanjutnya sebelum di implementasikan di production dengan keunggulan yang ditawarkan sepertinya menjanjikan dan `opensource` tentunya.
+
+## Situs terkait 
+
+- https://vitejs.dev
